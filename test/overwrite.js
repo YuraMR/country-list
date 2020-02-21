@@ -4,7 +4,7 @@ const { test } = require('tap')
 const { overwrite, getData, getName } = require('../')
 
 const correctedTW = {
-  code: 'TW',
+  alpha2: 'TW',
   name: 'Taiwan'
 }
 

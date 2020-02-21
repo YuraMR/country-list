@@ -8,15 +8,15 @@ var codeMap = {}
 data.forEach(mapCodeAndName)
 
 function mapCodeAndName (country) {
-  nameMap[country.name.toLowerCase()] = country.code
-  codeMap[country.code.toLowerCase()] = country.name
+  nameMap[country.name.toLowerCase()] = country.alpha2
+  codeMap[country.alpha2.toLowerCase()] = country.name
 }
 
 exports.overwrite = function overwrite (countries) {
   if (!countries || !countries.length) return
   countries.forEach(function (country) {
     var foundIndex = data.findIndex(function (item) {
-      return item.code === country.code
+      return item.alpha2 === country.alpha2
     })
     data[foundIndex] = country
     mapCodeAndName(country)
@@ -27,8 +27,8 @@ exports.getCode = function getCode (name) {
   return nameMap[name.toLowerCase()]
 }
 
-exports.getName = function getName (code) {
-  return codeMap[code.toLowerCase()]
+exports.getName = function getName (alpha2) {
+  return codeMap[alpha2.toLowerCase()]
 }
 
 exports.getNames = function getNames () {
@@ -39,7 +39,7 @@ exports.getNames = function getNames () {
 
 exports.getCodes = function getCodes () {
   return data.map(function (country) {
-    return country.code
+    return country.alpha2
   })
 }
 
@@ -53,4 +53,19 @@ exports.getNameList = function getNameList () {
 
 exports.getData = function getData () {
   return data
+}
+
+exports.add = function add (country, name, euMember) {
+  if (!name) data.push(country)
+  else data.push({ alpha2: country, name, euMember })
+}
+
+exports.remove = function remove (id) {
+  if (typeof id === 'number') data.splice(id, 1)
+  if (typeof id === 'string') {
+    var foundIndex = data.findIndex(function (item) {
+      return item.alpha2 === id
+    })
+    data.splice(foundIndex, 1)
+  }
 }
