@@ -51,10 +51,6 @@ exports.getNameList = function getNameList () {
   return nameMap
 }
 
-exports.getData = function getData () {
-  return data
-}
-
 exports.add = function add (country, name, euMember) {
   if (!name) data.push(country)
   else data.push({ alpha2: country, name, euMember })
@@ -69,3 +65,5 @@ exports.remove = function remove (id) {
     data.splice(foundIndex, 1)
   }
 }
+
+exports.default = data
